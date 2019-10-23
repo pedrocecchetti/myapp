@@ -3,11 +3,28 @@ const router = express.Router();
 const Knight = require('../models/Knight')
 
 router.get('/', (req,res)=>{
+
+    Knight.find().exec(function(err, knights){
+        if (err){
+            res.status(400)
+            res.json({message: err})
+        }else{
+            res.json(knights);
+        }
+    });
+
+})
+
+router.get('/:id', (req,res)=>{
+    Knight.findById(req.params.id).exec(function(err, knight){
+        if (err){
+            res.status(400)
+            res.json({message: err})
+        }else{
+            res.json(knight)
+        }
         
-    const knights = Knight.find();
-    console.log(knights)
-   
-    
+    });
 })
 
 router.post('/', async(req,res)=>{
@@ -27,6 +44,7 @@ router.post('/', async(req,res)=>{
     },
     "keyAttribute": req.body.keyAttribute
     });
+
     try{
         const savedKnight = await knight.save();
         res.json(savedKnight);
@@ -34,8 +52,18 @@ router.post('/', async(req,res)=>{
         res.json({ message: err });
     }
 
-    
+})
 
+router.delete('/:id', (req,res) => {
+    Knight.deleteOne({_id: req.params.id}).exec(function(err, knight){
+        if (err){
+            res.status(400)
+            res.json({message: err})
+        }else{
+            res.json({message: "Knight Deleted and added to Hall of Fame",
+                    knight: knight})
+        }
+    })
 })
 
 module.exports = router;
