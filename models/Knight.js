@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const Knight = new Schema({
+const KnightSchema = new Schema({
     "name": String,
     "nickname": String,
     "birthday": Date,
@@ -22,6 +22,7 @@ const Knight = new Schema({
         "wisdom": Number,
         "charisma": Number,
     },
-    "keyAttribute": "strength"
-    }
+    "keyAttribute": String
 })
+
+module.exports = mongoose.model('Knight', KnightSchema)
