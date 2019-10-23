@@ -1,19 +1,13 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
+
+const WeaponSchema = require('./Weapon');
 
 const KnightSchema = new Schema({
     "name": String,
     "nickname": String,
     "birthday": Date,
-    "weapons": [
-        {
-        "name": String,
-        "mod": Number,
-        "attr": String,
-        "equipped": Boolean
-        }
-    ],
+    "weapons": [WeaponSchema],
     "attributes": {
         "strength": Number,
         "dexterity": Number,
@@ -25,4 +19,6 @@ const KnightSchema = new Schema({
     "keyAttribute": String
 })
 
-module.exports = mongoose.model('Knight', KnightSchema)
+
+
+module.exports = mongoose.model('Knight', KnightSchema);
