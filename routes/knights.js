@@ -71,6 +71,12 @@ router.post('/', async(req,res)=>{
 
 })
 
+router.put('/:id', async(req,res)=>{
+    
+    Knight.findOneAndUpdate({_id: req.params.id}, req.body)
+
+})
+
 router.delete('/:id', (req,res) => {
 
     Knight.findById({_id: req.params.id}).exec(function(err,knight){
