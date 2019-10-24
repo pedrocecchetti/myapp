@@ -32,7 +32,7 @@ router.post('/', async(req,res)=>{
     const knight = new Knight({
         "name": req.body.name,
         "nickname": req.body.nickname,
-        "birthday": req.body.date,
+        "birthday": req.body.birthday,
         "weapons": req.body.weapons,
     "attributes": {
         "strength": req.body.attributes.strength,
@@ -44,6 +44,10 @@ router.post('/', async(req,res)=>{
     },
     "keyAttribute": req.body.keyAttribute
     });
+
+    knight.calculateAttack()
+    knight.calculateAge()
+    knight.calculateExp()
 
     try{
         const savedKnight = await knight.save();
@@ -60,6 +64,7 @@ router.delete('/:id', (req,res) => {
             res.status(400)
             res.json({message: err})
         }else{
+
             res.json({message: "Knight Deleted and added to Hall of Fame",
                     knight: knight})
         }
